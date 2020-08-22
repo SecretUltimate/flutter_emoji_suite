@@ -1,8 +1,7 @@
 name: flutter_emoji_suite
 description: a flutter emoji suite,for Android,iOS and etc
 version: 0.0.1
-author: chanyunyu@vip.qq.com
-homepage: https://github.com/chanyunyu
+homepage: https://github.com/SecretUltimate/flutter_emoji_suite
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
