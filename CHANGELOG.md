@@ -8,4 +8,9 @@
 
 ## [0.0.1+2] - 2020.8.29
 
+* rename demo project
+
+
+## [0.0.1+3] - 2020.8.29
+
 * rename example project
