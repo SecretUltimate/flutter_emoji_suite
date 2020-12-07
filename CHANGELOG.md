@@ -14,3 +14,7 @@
 ## [0.0.1+3] - 2020.8.29
 
 * rename example project
+
+## [0.1.0] - 2020.12.7
+
+* use [heart] instead of :heart:
