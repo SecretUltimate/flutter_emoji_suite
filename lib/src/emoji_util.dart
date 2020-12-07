@@ -8,7 +8,7 @@ import 'emoji_parser.dart';
 class EmojiUtil {
   ///
   /// Strip colons for emoji name.
-  /// So, ':heart:' will become 'heart'.
+  /// So, '[heart]' will become 'heart'.
   ///
   static String stripColons(String name, [void onError(String message)]) {
     Iterable<Match> matches = EmojiParser.regexName.allMatches(name);
@@ -18,21 +18,21 @@ class EmojiUtil {
       }
       return name;
     }
-    return name.replaceAll(EmojiConst.charColon, EmojiConst.charEmpty);
+    return name.replaceAll(EmojiConst.emojiFlagStart, EmojiConst.charEmpty).replaceAll(EmojiConst.emojiFlagEnd, EmojiConst.charEmpty);
   }
 
   ///
   /// Wrap colons on both sides of emoji name.
-  /// So, 'heart' will become ':heart:'.
+  /// So, 'heart' will become '[heart]'.
   ///
   static String ensureColons(String name) {
     String res = name;
-    if (!name.startsWith(EmojiConst.charColon, 0)) {
-      res = EmojiConst.charColon + name;
+    if (!name.startsWith(EmojiConst.emojiFlagStart, 0)) {
+      res = EmojiConst.emojiFlagStart + name;
     }
 
-    if (!name.endsWith(EmojiConst.charColon)) {
-      res += EmojiConst.charColon;
+    if (!name.endsWith(EmojiConst.emojiFlagEnd)) {
+      res += EmojiConst.emojiFlagEnd;
     }
 
     return res;
