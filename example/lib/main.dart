@@ -38,9 +38,12 @@ class _FlutterEmojiSuiteDemoState extends State<FlutterEmojiSuiteDemo> {
             TextField(
               controller: controller,
             ),
+            Text('${defaultEmojiParse.unemojify(controller.text)}'),
             Expanded(
               child: EmojiPicker(emojiPickObserver: (dynamic emoji) {
-                controller.text = '${controller.text}$emoji';
+                setState(() {
+                  controller.text = '${controller.text}$emoji';
+                });
               }),
             ),
           ],
