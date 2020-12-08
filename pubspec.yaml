@@ -1,6 +1,6 @@
 name: flutter_emoji_suite
 description: a flutter emoji suite,for Android,iOS and etc
-version: 0.1.0
+version: 0.1.0+1
 homepage: https://github.com/SecretUltimate/flutter_emoji_suite
 
 environment:

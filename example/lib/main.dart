@@ -38,14 +38,17 @@ class _FlutterEmojiSuiteDemoState extends State<FlutterEmojiSuiteDemo> {
             TextField(
               controller: controller,
             ),
-            Text('${defaultEmojiParse.unemojify(controller.text)}'),
-            Text('${defaultEmojiParse.emojify(defaultEmojiParse.unemojify(controller.text))}'),
+            Text('${emojiParser.unemojify(controller.text)}'),
+            Text('${emojiParser.emojify(emojiParser.unemojify(controller.text))}'),
             Expanded(
-              child: EmojiPicker(emojiPickObserver: (dynamic emoji) {
-                setState(() {
-                  controller.text = '${controller.text}$emoji';
-                });
-              }),
+              child: EmojiPicker(
+                emojiPickObserver: (dynamic emoji) {
+                  setState(() {
+                    controller.text = '${controller.text}$emoji';
+                  });
+                },
+                emojiParser: emojiParser,
+              ),
             ),
           ],
         ),
@@ -53,3 +56,5 @@ class _FlutterEmojiSuiteDemoState extends State<FlutterEmojiSuiteDemo> {
     );
   }
 }
+
+EmojiParser emojiParser = EmojiParser(customEmoji: '{"开心":"😀","呲牙":"😁","笑哭":"😂"}');

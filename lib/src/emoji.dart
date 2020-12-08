@@ -21,7 +21,7 @@ class Emoji {
 
   Emoji(this.name, this.code);
 
-  String get full => EmojiUtil.ensureColons(this.name);
+  String get full => EmojiUtil.ensureDivider(this.name);
 
   @override
   bool operator ==(other) {

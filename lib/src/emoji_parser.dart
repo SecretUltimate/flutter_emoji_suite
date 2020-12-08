@@ -13,7 +13,7 @@ class EmojiParser {
   /// TODO: improve this version, since it does not match the graphical bytes.
   static final RegExp regexEmoji = RegExp(r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])');
 
-  static final RegExp regexName = RegExp(r"\[([\w-+]+)\]");
+  static final RegExp regexName = RegExp(r"\[([\u4e00-\u9fa5\w-+]+)\]");
 
   ///
   /// Data source for Emoji.
@@ -34,11 +34,13 @@ class EmojiParser {
   EmojiParser({String customEmoji, bool keepBuildInEmoji: true}) {
     assert(customEmoji != null || keepBuildInEmoji == true);
     Map<String, dynamic> emojiMapping = Map();
-    if (keepBuildInEmoji) {
-      emojiMapping.addAll(jsonDecode(defaultEmoji));
-    }
     if (customEmoji?.isNotEmpty ?? false) {
       emojiMapping.addAll(jsonDecode(customEmoji));
+    }
+    if (keepBuildInEmoji) {
+      Map defaultEmojiData = jsonDecode(defaultEmoji);
+      defaultEmojiData.removeWhere((key, value) => emojiMapping.values.contains(value));
+      emojiMapping.addAll(defaultEmojiData);
     }
     emojiMapping.forEach((k, v) {
       _emojisByName[k] = Emoji(k, v);
@@ -47,11 +49,11 @@ class EmojiParser {
     _allEmoji.addAll(emojiMapping.values.toList());
   }
 
-  Emoji get(String name) => _emojisByName[EmojiUtil.stripColons(name)] ?? Emoji.none;
+  Emoji get(String name) => _emojisByName[EmojiUtil.stripDivider(name)] ?? Emoji.none;
 
   Emoji getName(String name) => get(name) ?? Emoji.none;
 
-  bool hasName(String name) => _emojisByName.containsKey(EmojiUtil.stripColons(name));
+  bool hasName(String name) => _emojisByName.containsKey(EmojiUtil.stripDivider(name));
 
   ///
   /// Get info for an emoji.
@@ -97,7 +99,7 @@ class EmojiParser {
     if (matches.isNotEmpty) {
       String result = text;
       matches.toList().forEach((m) {
-        var _e = EmojiUtil.stripColons(m.group(0));
+        var _e = EmojiUtil.stripDivider(m.group(0));
         if (hasName(_e)) {
           result = result.replaceAll(m.group(0), get(_e).code);
         }
