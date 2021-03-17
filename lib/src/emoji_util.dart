@@ -10,7 +10,7 @@ class EmojiUtil {
   /// Strip colons for emoji name.
   /// So, '[heart]' will become 'heart'.
   ///
-  static String stripDivider(String name, [void onError(String message)]) {
+  static String stripDivider(String name, [void onError(String message)?]) {
     Iterable<Match> matches = EmojiParser.regexName.allMatches(name);
     if (matches.isEmpty) {
       if (onError != null) {

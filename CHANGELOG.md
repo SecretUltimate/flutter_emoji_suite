@@ -16,3 +16,7 @@
 ## [0.1.0+1] - 2020.12.8
 * support Chinese for Emoji name
 * Insert customized Emoji first, and remove the customized Emoji from the default Emoji
+
+## [1.0.0] - 2021.3.17
+* upgrade flutter sdk to 2.0.2
+* null safety support

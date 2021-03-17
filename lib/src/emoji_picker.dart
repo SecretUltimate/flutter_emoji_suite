@@ -7,17 +7,17 @@ EmojiParser defaultEmojiParse = EmojiParser();
 typedef EmojiPickObserver = Function(dynamic emoji);
 
 class EmojiPicker extends StatefulWidget {
-  final EmojiParser emojiParser;
+  final EmojiParser? emojiParser;
   final EmojiPickObserver emojiPickObserver;
 
-  EmojiPicker({@required this.emojiPickObserver, this.emojiParser});
+  EmojiPicker({required this.emojiPickObserver, this.emojiParser});
 
   @override
   _EmojiPickerState createState() => _EmojiPickerState();
 }
 
 class _EmojiPickerState extends State<EmojiPicker> {
-  List _data = List();
+  List _data = [];
 
   @override
   void initState() {

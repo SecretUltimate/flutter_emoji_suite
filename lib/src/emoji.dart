@@ -25,7 +25,9 @@ class Emoji {
 
   @override
   bool operator ==(other) {
-    return this.name == other.name && this.code == other.code;
+    return other is Emoji
+        ? this.name == other.name && this.code == other.code
+        : false;
   }
 
   @override

@@ -28,19 +28,19 @@ class EmojiParser {
 
   Map<String, Emoji> _emojisByName = Map<String, Emoji>();
   Map<String, Emoji> _emojisByCode = Map<String, Emoji>();
-  List<dynamic> _allEmoji = List();
+  List<dynamic> _allEmoji = [];
   List<dynamic> get allEmoji => _allEmoji;
 
-  EmojiParser({String customEmoji, bool keepBuildInEmoji: true}) {
+  EmojiParser({String? customEmoji, bool keepBuildInEmoji: true}) {
     assert(customEmoji != null || keepBuildInEmoji == true);
     Map<String, dynamic> emojiMapping = Map();
     if (customEmoji?.isNotEmpty ?? false) {
-      emojiMapping.addAll(jsonDecode(customEmoji));
+      emojiMapping.addAll(jsonDecode(customEmoji!));
     }
     if (keepBuildInEmoji) {
       Map defaultEmojiData = jsonDecode(defaultEmoji);
       defaultEmojiData.removeWhere((key, value) => emojiMapping.values.contains(value));
-      emojiMapping.addAll(defaultEmojiData);
+      emojiMapping.addAll(defaultEmojiData as Map<String, dynamic>);
     }
     emojiMapping.forEach((k, v) {
       _emojisByName[k] = Emoji(k, v);
@@ -51,7 +51,7 @@ class EmojiParser {
 
   Emoji get(String name) => _emojisByName[EmojiUtil.stripDivider(name)] ?? Emoji.none;
 
-  Emoji getName(String name) => get(name) ?? Emoji.none;
+  Emoji getName(String name) => get(name);
 
   bool hasName(String name) => _emojisByName.containsKey(EmojiUtil.stripDivider(name));
 
@@ -99,9 +99,9 @@ class EmojiParser {
     if (matches.isNotEmpty) {
       String result = text;
       matches.toList().forEach((m) {
-        var _e = EmojiUtil.stripDivider(m.group(0));
+        var _e = EmojiUtil.stripDivider(m.group(0)!);
         if (hasName(_e)) {
-          result = result.replaceAll(m.group(0), get(_e).code);
+          result = result.replaceAll(m.group(0)!, get(_e).code);
         }
       });
       return result;
@@ -120,8 +120,8 @@ class EmojiParser {
     if (matches.isNotEmpty) {
       String result = text;
       matches.toList().forEach((m) {
-        if (hasEmoji(m.group(0))) {
-          result = result.replaceAll(m.group(0), getEmoji(m.group(0)).full);
+        if (hasEmoji(m.group(0)!)) {
+          result = result.replaceAll(m.group(0)!, getEmoji(m.group(0)!).full);
 
           /// Just a quick hack to clear graphical byte from emoji.
           /// TODO: find better way to get through this tweak
